@@ -1,8 +1,4 @@
-# kubernetes-devops-security
-
-## Fork and Clone this Repo
-
-## Clone to Desktop and VM
+### DevSecOps Project
 
 ## NodeJS Microservice - Docker Image -
 `docker run -p 8787:5000 siddharth67/node-service:v1`
