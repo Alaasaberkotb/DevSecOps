@@ -1,8 +1,5 @@
 pipeline {
-    agent { label 'test' }
-    tools {
-        jdk 'jdk8'
-    }
+  agent any
     stages {
         
         stage('Unit Tests - JUnit and Jacoco') {
