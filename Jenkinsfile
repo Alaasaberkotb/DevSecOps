@@ -1,6 +1,10 @@
 pipeline {
   agent any
     stages {
+        stage('Build JAR') {
+            steps {
+                  sh "mvn clean install -DskipTests=true"
+            }
         stage('Unit Tests - JUnit and Jacoco') {
             steps {
                   sh "mvn test"
@@ -11,10 +15,6 @@ pipeline {
               sh "mvn org.pitest:pitest-maven:mutationCoverage" 
                  } 
         }
-        stage('Build JAR') {
-            steps {
-                  sh "mvn clean install -DskipTests=true"
-            }
         }
         stage('Artifacts JAR') {
             steps {
@@ -48,7 +48,7 @@ pipeline {
    }
     post{
         always{
-            junit allowEmptyResults: true, testResults: 'target/test-results/*.xml'
+            junit 'target/surefire-reports/*.xml'
             jacoco execPattern: 'target/jacoco.exec'
             pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
     //        dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
