@@ -49,7 +49,7 @@ pipeline {
    }
     post{
         always{
-            junit 'target/surefire-reports/*.xml'
+            junit 'target/surefireReports/*.xml'
             jacoco execPattern: 'target/jacoco.exec'
             pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
     //        dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
