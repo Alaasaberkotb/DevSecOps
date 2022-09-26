@@ -48,7 +48,7 @@ pipeline {
    }
     post{
         always{
-            junit 'target/*.xml'
+            junit allowEmptyResults: true, testResults: 'target/test-results/*.xml'
             jacoco execPattern: 'target/jacoco.exec'
             pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
     //        dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
