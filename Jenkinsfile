@@ -4,16 +4,7 @@ pipeline {
         jdk 'jdk8'
     }
     stages {
-        stage('Build JAR') {
-            steps {
-                  sh "mvn clean install -DskipTests=true"
-            }
-        }
-        stage('Artifacts JAR') {
-            steps {
-                 archiveArtifacts artifacts: 'target/*.jar'
-            }
-        }
+        
         stage('Unit Tests - JUnit and Jacoco') {
             steps {
                   sh "mvn test"
@@ -23,6 +14,16 @@ pipeline {
             steps{ 
               sh "mvn org.pitest:pitest-maven:mutationCoverage" 
                  } 
+        }
+        stage('Build JAR') {
+            steps {
+                  sh "mvn clean install -DskipTests=true"
+            }
+        }
+        stage('Artifacts JAR') {
+            steps {
+                 archiveArtifacts artifacts: 'target/*.jar'
+            }
         }
       //  stage('SonarQube - SAST') {
        //     steps {
@@ -43,16 +44,11 @@ pipeline {
         }
         stage('Docker image build and push'){
             steps {
-                sh "docker build -t 192.168.205.130:5000/repository/hassan/java:${BUILD_NUMBER} ."
-                sh "docker push 192.168.205.130:5000/repository/hassan/java:${BUILD_NUMBER}"
+                sh "docker build -t hassaneid/java:${BUILD_NUMBER} ."
+                sh "docker push hassaneid/java:${BUILD_NUMBER}"
             }
         }
-        stage('Kubernetes Deployment - DEV') {
-            steps {
-            sh "sed -i 's#REPLACE_ME#192.168.205.130:5000/repository/hassan/java:${BUILD_NUMBER}#g' k8s_deployment_service.yaml"
-            sh "kubectl apply -f k8s_deployment_service.yaml"
-            }
-        }
+    
    }
     post{
         always{
