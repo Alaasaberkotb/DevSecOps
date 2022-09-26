@@ -1,7 +1,6 @@
 pipeline {
   agent any
     stages {
-        
         stage('Unit Tests - JUnit and Jacoco') {
             steps {
                   sh "mvn test"
