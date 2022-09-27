@@ -29,7 +29,7 @@ pipeline {
                   sh "mvn clean verify sonar:sonar \
                       -Dsonar.projectKey=devsecops \
                       -Dsonar.host.url=http://35.172.184.152:30012 \
-                      -Dsonar.login=sqp_5d5f0bb38ebda802f9cd2bb9200cb65a3d2c64a4
+                      -Dsonar.login=sqp_5d5f0bb38ebda802f9cd2bb9200cb65a3d2c64a4"
                   }
                   timeout(time: 2, unit: 'MINUTES'){
                   script{
