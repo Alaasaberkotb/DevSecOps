@@ -24,22 +24,22 @@ pipeline {
         }
         
         
-//        stage('SonarQube - SAST') {
-  //          steps {
-    //              withSonarQubeEnv('SonerQube'){
-      //            sh "mvn clean verify sonar:sonar \
-        //              -Dsonar.projectKey=devsecops \
-          //            -Dsonar.host.url=http://54.237.199.212:30012"
-            //      }
-              //    timeout(time: 2, unit: 'MINUTES'){
-                //  script{
-                //    waitForQualityGate abortPipeline: true
-                //    }
-                //  }
-              // }
-       // }
+        stage('SonarQube - SAST') {
+            steps {
+                  sh "mvn clean verify sonar:sonar \
+                      -Dsonar.projectKey=devsecops \
+                      -Dsonar.host.url=http://35.172.184.152:30012 \
+                      -Dsonar.login=sqp_5d5f0bb38ebda802f9cd2bb9200cb65a3d2c64a4
+                  }
+                  timeout(time: 2, unit: 'MINUTES'){
+                  script{
+                   waitForQualityGate abortPipeline: true
+                    }
+                  }
+               }
+        }
       
-        stage('Vulnerability Scan Docker'){
+        stage('Vulnerability Scan Dependencies'){
             steps{
                 sh "mvn dependency-check:check"
                 dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
