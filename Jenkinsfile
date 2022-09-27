@@ -36,7 +36,7 @@ pipeline {
                    waitForQualityGate abortPipeline: true
                     }
                   }
-               }
+               
         }
       
         stage('Vulnerability Scan Dependencies'){
