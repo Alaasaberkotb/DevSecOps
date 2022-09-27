@@ -65,7 +65,7 @@ pipeline {
              sh "bash trivy-docker-scan.sh"
              },
              "OPA Conftest": {
-             sh '/usr/local/bin/conftest test --policy opa-docker-security.rego Dockerfile'
+             sh 'conftest test --policy opa-docker-security.rego Dockerfile'
              }
            )
          }
