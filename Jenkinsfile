@@ -58,12 +58,25 @@ pipeline {
             }
         }
       
- //       stage('Docker image build and push'){
-  //          steps {
-   //             sh "docker build -t hassaneid/java:${BUILD_NUMBER} ."
-    //            sh "docker push hassaneid/java:${BUILD_NUMBER}"
-      //      }
-     //   }
+        stage('Vulnerability Scan - Docker') {
+        steps {
+          parallel(
+            "Trivy Scan": {
+             sh "bash trivy-docker-image-scan.sh"
+             },
+             "OPA Conftest": {
+             sh '/usr/local/bin/conftest test --policy opa-docker-security.rego Dockerfile'
+             }
+           )
+         }
+       }
+      
+        stage('Docker image build and push'){
+            steps {
+                sh "docker build -t hassaneid/java:${BUILD_NUMBER} ."
+                sh "docker push hassaneid/java:${BUILD_NUMBER}"
+            }
+        }
     
    }
 }
