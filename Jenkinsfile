@@ -32,7 +32,7 @@ pipeline {
                       -Dsonar.host.url=http://3.91.70.141:9000"
                         }
                   }
-            }
+            
         }
       
         stage('Vulnerability Scan Dependencies'){
