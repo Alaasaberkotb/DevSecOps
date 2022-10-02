@@ -26,7 +26,7 @@ pipeline {
         
         stage('SonarQube - SAST') {
             steps {
-              withSonarQubeEnv('sonarqube'){
+              withSonarQubeEnv('sonar'){
                   sh "mvn clean verify sonaradmin:sonaradmin \
                       -Dsonar.projectKey=devsecops \
                       -Dsonar.host.url=http://3.91.70.141:9000"
