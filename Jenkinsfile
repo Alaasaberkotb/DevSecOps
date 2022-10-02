@@ -28,10 +28,10 @@ pipeline {
             steps {
               withSonarQubeEnv('sonar'){
                   sh "mvn clean verify sonar:sonar \
-                      -Dsonar.projectKey=devsecops \
+                      -Dsonar.projectKey=dev \
                       -Dsonar.host.url=http://3.91.70.141:9000"
                    }
-                   timeout(time: 2, unit: 'MINUTES'){
+                   timeout(time: 3, unit: 'MINUTES'){
                     script{
                      waitForQualityGate abortPipeline: true
                     }
