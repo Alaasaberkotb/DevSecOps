@@ -57,26 +57,6 @@ pipeline {
                  archiveArtifacts artifacts: 'target/*.jar'
             }
         }
-      
-        stage('Vulnerability Scan - Docker') {
-        steps {
-          parallel(
-            "Trivy Scan": {
-             sh "bash trivy-docker-scan.sh"
-             },
-             "OPA Conftest": {
-             sh 'conftest test --policy opa-docker-security.rego Dockerfile'
-             }
-           )
-         }
-       }
-      
-        stage('Docker image build and push'){
-            steps {
-                sh "docker build -t hassaneid/java:${BUILD_NUMBER} ."
-                sh "docker push hassaneid/java:${BUILD_NUMBER}"
-            }
-        }
-    
+     
    }
 }
